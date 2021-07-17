@@ -300,6 +300,7 @@ Resources:
             yum install -y jq
             dnf update -y
             dnf install python3 -y
+            pip install --upgrade pip
           fi
           if [[ ${OS} == "SUSE" ]]; then
             zypper install -y zip unzip
