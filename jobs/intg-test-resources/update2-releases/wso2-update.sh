@@ -38,12 +38,12 @@ else
   sudo chmod 755 wso2update_linux
   sudo ./wso2update_linux check --username "'$WSO2_USERNAME'" --password "$WSO2_PASSWORD"
   sed "s/PATTERN/$WSO2_PRODUCT/" /opt/testgrid/workspace/uat-config.json  | sed "s/PRODUCT_NAME/$PRODUCT_NAME/" | sed "s/PRODUCT_VERSION/$PRODUCT_VERSION/" > ../updates/config.json
-  sudo ./wso2update_linux --username $WSO2_USERNAME --password $WSO2_PASSWORD --backup ../../backup
+  sudo ./wso2update_linux --username $WSO2_USERNAME --password $WSO2_PASSWORD --backup /opt/testgrid/workspace/backup
   update_exit_code=$(echo $?)
 
   if [ $update_exit_code -eq 2 ]; then
     echo "Self Update."
-    sudo ./wso2update_linux --username $WSO2_USERNAME --password $WSO2_PASSWORD --backup ../../backup
+    sudo ./wso2update_linux --username $WSO2_USERNAME --password $WSO2_PASSWORD --backup /opt/testgrid/workspace/backup
     update_exit_code=$(echo $?)
   fi
 
