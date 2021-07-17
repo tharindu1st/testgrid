@@ -298,6 +298,8 @@ Resources:
             yum install -y epel-release zip unzip
             yum install -y python-pip
             yum install -y jq
+            dnf update -y
+            dnf install python3 -y
           fi
           if [[ ${OS} == "SUSE" ]]; then
             zypper install -y zip unzip
@@ -348,7 +350,7 @@ Resources:
           echo "REMOTE_PACK_NAME=${ProductName}-${ProductVersion}" >> cfn-props.properties
           curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
           unzip awscli-bundle.zip
-          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+          python3 ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
           aws --version
           aws configure set aws_access_key_id '${AWSAccessKeyId}'
           aws configure set aws_secret_access_key '${AWSAccessKeySecret}'
