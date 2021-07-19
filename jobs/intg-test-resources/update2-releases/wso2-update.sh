@@ -19,10 +19,9 @@
 # under the License.
 #
 # ----
-CFN_PROP_FILE=/opt/testgrid/workspace/cfn-props.properties
-WSO2_USERNAME=$(grep -w "WUM_USERNAME" ${CFN_PROP_FILE} | cut -d'=' -f2)
-WSO2_PASSWORD=$(grep -w "WUM_PASSWORD" ${CFN_PROP_FILE} | cut -d'=' -f2)
-WSO2_PRODUCT=$(grep -w "REMOTE_PACK_NAME" ${CFN_PROP_FILE} | cut -d'=' -f2)
+readonly WSO2_USERNAME=$1
+readonly WSO2_PASSWORD=$2
+readonly WSO2_PRODUCT=$3
 echo "Unzipping $WSO2_PRODUCT Pack."
 unzip -o -q $WSO2_PRODUCT.zip && cd $WSO2_PRODUCT/bin
 
@@ -34,7 +33,6 @@ if [ -z "${WSO2_USERNAME}" ] && [ -z "${WSO2_PASSWORD}" ]; then
   exit 0
 else
   # Note: config.json will be replaced with UAT information through cloudformation.
-
   sudo chmod 755 wso2update_linux
   sudo ./wso2update_linux check --username "'$WSO2_USERNAME'" --password "$WSO2_PASSWORD" -v
   sed "s/PATTERN/$WSO2_PRODUCT/" /opt/testgrid/workspace/uat-config.json  | sed "s/PRODUCT_NAME/$PRODUCT_NAME/" | sed "s/PRODUCT_VERSION/$PRODUCT_VERSION/" > ../updates/config.json
@@ -43,7 +41,7 @@ else
 
   if [ $update_exit_code -eq 2 ]; then
     echo "Self Update."
-    sudo ./wso2update_linux --username $WSO2_USERNAME --password $WSO2_PASSWORD --backup /opt/testgrid/workspace/backup
+    sudo ./wso2update_linux --username $WSO2_USERNAME --password $WSO2_PASSWORD --backup /opt/testgrid/workspace/backup -v
     update_exit_code=$(echo $?)
   fi
 

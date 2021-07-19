@@ -361,12 +361,13 @@ Resources:
           aws s3 cp s3://wum-for-testgrid/uat-config.json $WORKING_DIR/uat-config.json
           df -h
           wget "https://wso2-installers-resources.s3.amazonaws.com/updates2.0/${ProductName}/${ProductVersion}/${ProductName}-${ProductVersion}.zip"
-          wget "https://raw.githubusercontent.com/tharindu1st/testgrid/master/jobs/intg-test-resources/update2-releases/wso2-update.sh"
+          wget "https://raw.githubusercontent.com/tharindu1st/testgrid/testing/jobs/intg-test-resources/update2-releases/wso2-update.sh"
           chmod +x /opt/testgrid/workspace/wso2-update.sh
+          sudo bash /opt/testgrid/workspace/wso2-update.sh '${WUMUsername}' '${WUMPassword}' '${ProductName}-${ProductVersion}'
 
           echo ${OS}
           if [[ ${OS} == "Ubuntu" ]]; then
-            /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WSO2UnixInstance --region ${AWS::Region}
+            /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WSO2UnixInstance --region ${WSO2UnixInstance}
           fi
           if [[ ${OS} == "CentOS" ]]; then
             /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WSO2UnixInstance --region ${AWS::Region}
