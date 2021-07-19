@@ -347,6 +347,8 @@ Resources:
           echo "CF_DB_HOST=${WSO2DBInstance.Endpoint.Address}" >> cfn-props.properties
           echo "CF_DB_PORT=${WSO2DBInstance.Endpoint.Port}" >> cfn-props.properties
           echo "SID=${DBName}" >> cfn-props.properties
+          echo "WUM_USERNAME=${WUMUsername}" >> cfn-props.properties          
+          echo "WUM_PASSWORD=${WUMPassword}" >> cfn-props.properties
           #add product pack name to cfn properties
           echo "REMOTE_PACK_NAME=${ProductName}-${ProductVersion}" >> cfn-props.properties
           curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
@@ -361,7 +363,6 @@ Resources:
           wget "https://wso2-installers-resources.s3.amazonaws.com/updates2.0/${ProductName}/${ProductVersion}/${ProductName}-${ProductVersion}.zip"
           wget "https://raw.githubusercontent.com/tharindu1st/testgrid/master/jobs/intg-test-resources/update2-releases/wso2-update.sh"
           chmod +x /opt/testgrid/workspace/wso2-update.sh
-          sudo bash /opt/testgrid/workspace/wso2-update.sh '${WUMUsername}' '${WUMPassword}' '${ProductName}-${ProductVersion}'
 
           echo ${OS}
           if [[ ${OS} == "Ubuntu" ]]; then
