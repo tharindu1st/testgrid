@@ -25,7 +25,6 @@ WSO2_PASSWORD=$(grep -w "WUM_PASSWORD" ${CFN_PROP_FILE} | cut -d'=' -f2 | cut -d
 WSO2_PRODUCT=$(grep -w "REMOTE_PACK_NAME" ${CFN_PROP_FILE} | cut -d'=' -f2)
 echo "Unzipping $WSO2_PRODUCT Pack."
 unzip -o -q $WSO2_PRODUCT.zip && cd $WSO2_PRODUCT/bin
-sleep 15m
 PRODUCT_NAME=$(echo $WSO2_PRODUCT | rev | cut -d"-" -f2-  | rev)
 PRODUCT_VERSION=$(echo $WSO2_PRODUCT | rev | cut -d"-" -f1  | rev)
 
@@ -61,6 +60,6 @@ else
   else
     echo "Unkown exit code from update tool."
   fi
+sleep 10m
   exit 1
-
 fi
