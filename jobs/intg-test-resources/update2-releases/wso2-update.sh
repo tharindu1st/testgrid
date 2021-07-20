@@ -20,8 +20,8 @@
 #
 # ----
 CFN_PROP_FILE=/opt/testgrid/workspace/cfn-props.properties
-WSO2_USERNAME=$(grep -w "WUM_USERNAME" ${CFN_PROP_FILE} | cut -d'=' -f2 | cut -d"'" -f2)
-WSO2_PASSWORD=$(grep -w "WUM_PASSWORD" ${CFN_PROP_FILE} | cut -d'=' -f2 | cut -d"'" -f2)
+WSO2_USERNAME=$1
+WSO2_PASSWORD=$2
 WSO2_PRODUCT=$(grep -w "REMOTE_PACK_NAME" ${CFN_PROP_FILE} | cut -d'=' -f2)
 echo "Unzipping $WSO2_PRODUCT Pack."
 unzip -o -q $WSO2_PRODUCT.zip && cd $WSO2_PRODUCT/bin
@@ -48,6 +48,7 @@ else
   if [ $update_exit_code -eq 0 ]; then
     echo "Successfully updated."
     echo `pwd`
+    cd ../
     rm -rf $WSO2_PRODUCT.zip
     zip -r -q $WSO2_PRODUCT.zip $WSO2_PRODUCT
     exit 0
@@ -60,6 +61,6 @@ else
   else
     echo "Unkown exit code from update tool."
   fi
-sleep 10m
+sleep 5m
   exit 1
 fi
