@@ -347,8 +347,8 @@ Resources:
           echo "CF_DB_HOST=${WSO2DBInstance.Endpoint.Address}" >> cfn-props.properties
           echo "CF_DB_PORT=${WSO2DBInstance.Endpoint.Port}" >> cfn-props.properties
           echo "SID=${DBName}" >> cfn-props.properties
-          echo "WUM_USERNAME=${WUMUsername}" >> cfn-props.properties          
-          echo "WUM_PASSWORD=${WUMPassword}" >> cfn-props.properties
+          echo "WUM_USERNAME='${WUMUsername}'" >> cfn-props.properties          
+          echo "WUM_PASSWORD='${WUMPassword}'" >> cfn-props.properties
           #add product pack name to cfn properties
           echo "REMOTE_PACK_NAME=${ProductName}-${ProductVersion}" >> cfn-props.properties
           curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"

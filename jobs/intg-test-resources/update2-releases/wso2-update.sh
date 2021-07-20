@@ -20,8 +20,8 @@
 #
 # ----
 CFN_PROP_FILE=/opt/testgrid/workspace/cfn-props.properties
-WSO2_USERNAME=$(grep -w "WUM_USERNAME" ${CFN_PROP_FILE} | cut -d'=' -f2)
-WSO2_PASSWORD=$(grep -w "WUM_PASSWORD" ${CFN_PROP_FILE} | cut -d'=' -f2)
+WSO2_USERNAME=$(grep -w "WUM_USERNAME" ${CFN_PROP_FILE} | cut -d'=' -f2 | cut -d"'" -f2)
+WSO2_PASSWORD=$(grep -w "WUM_PASSWORD" ${CFN_PROP_FILE} | cut -d'=' -f2 | cut -d"'" -f2)
 WSO2_PRODUCT=$(grep -w "REMOTE_PACK_NAME" ${CFN_PROP_FILE} | cut -d'=' -f2)
 echo "Unzipping $WSO2_PRODUCT Pack."
 unzip -o -q $WSO2_PRODUCT.zip && cd $WSO2_PRODUCT/bin
