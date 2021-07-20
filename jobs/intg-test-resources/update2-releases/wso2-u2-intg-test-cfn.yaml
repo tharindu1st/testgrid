@@ -359,15 +359,18 @@ Resources:
           aws configure set aws_secret_access_key '${AWSAccessKeySecret}'
           aws configure set default.region us-east-1
           aws s3 cp s3://wum-for-testgrid/uat-config.json $WORKING_DIR/uat-config.json
-          df -h
           wget "https://wso2-installers-resources.s3.amazonaws.com/updates2.0/${ProductName}/${ProductVersion}/${ProductName}-${ProductVersion}.zip"
           wget "https://raw.githubusercontent.com/tharindu1st/testgrid/testing/jobs/intg-test-resources/update2-releases/wso2-update.sh"
           chmod +x /opt/testgrid/workspace/wso2-update.sh
-          sudo bash /opt/testgrid/workspace/wso2-update.sh '${WUMUsername}' '${WUMPassword}' '${ProductName}-${ProductVersion}'
-
+          echo "before wait"
+          df -h 
+          aws ec2 wait volume-in-use --filters Name=attachment.device,Values=/dev/sda1 Name=attachment.status,Values=attached Name=attachment.instance-id,Values=`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id`
+          echo "after wait"
+          df -h 
+          echo "wum password is ${WUMPassword}"
           echo ${OS}
           if [[ ${OS} == "Ubuntu" ]]; then
-            /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WSO2UnixInstance --region ${WSO2UnixInstance}
+            /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WSO2UnixInstance --region ${AWS::Region}
           fi
           if [[ ${OS} == "CentOS" ]]; then
             /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WSO2UnixInstance --region ${AWS::Region}
