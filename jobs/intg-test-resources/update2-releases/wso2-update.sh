@@ -61,6 +61,5 @@ else
   else
     echo "Unkown exit code from update tool."
   fi
-sleep 5m
   exit 1
 fi
