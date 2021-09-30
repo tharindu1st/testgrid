@@ -72,7 +72,7 @@
 					"password": "DB_PASSWORD"
 				}
 			],
-			"validation_query": "SELECT 1; COMMIT"
+			"validation_query": "SELECT 1"
 		},
 		{
 			"name": "sqlserver-se",
@@ -93,7 +93,7 @@
 					"password": "DB_PASSWORD"
 				}
 			],
-			"validation_query": "SELECT 1; COMMIT"
+			"validation_query": "SELECT 1"
 		},
 		{
 			"name": "oracle-se2",
